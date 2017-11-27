@@ -1,7 +1,7 @@
 
-<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+<div *ngIf="dish" class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
   <div fxFlex="40">
-    <div *ngIf="dish" class="container-card" >
+    <div class="container-card" >
       <md-card>
         <md-card-header>
           <md-card-title>
@@ -22,7 +22,7 @@
     </div>
   </div>
   <div fxFlex="40">
-    <div *ngIf="dish">
+    <div>
       <p style="font-weight:bold;">Comments</p>
       <md-list-item *ngFor="let comment of dish.comments">
         <p md-line>
@@ -37,4 +37,7 @@
       </md-list-item>
     </div>
   </div>
+</div>
+<div [hidden]="dish">
+    <md-spinner></md-spinner> <h4>Loading . . . Please Wait</h4>
 </div>

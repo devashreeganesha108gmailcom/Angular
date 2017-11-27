@@ -54,7 +54,7 @@ fxLayoutGap="10px">
   </div>
 
 
-  <div fxFlex>
+  <div fxFlex *ngIf="leaders">
     <h2>Corporate Leadership</h2>
     <md-grid-list class="leaderRow" *ngFor="let leader of leaders" [routerLink]="['/leaderdetail',leader.id]" cols="2" rowHeight="100px">
       <div fxLayout.gt-sm="row">
@@ -68,5 +68,8 @@ fxLayoutGap="10px">
         </div>
       </div>
     </md-grid-list>
+  </div>
+  <div [hidden]="leaders">
+    <md-spinner></md-spinner> <h4>Loading . . . Please Wait</h4>
   </div>
 </div>
