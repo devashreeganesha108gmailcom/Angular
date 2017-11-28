@@ -1,6 +1,6 @@
 
-<div *ngIf="dish" class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
-  <div fxFlex="40">
+<div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+  <div fxFlex="40" *ngIf="dish">
     <div class="container-card" >
       <md-card>
         <md-card-header>
@@ -14,14 +14,24 @@
           </p>
         </md-card-content>
         <md-card-actions>
+          <button md-button [routerLink]="['/dishdetail',prev]">
+            <span class="fa fa-chevron-left fa-lg"></span>
+          </button>
           <button md-button (click)="goBack()">BACK</button>
           <button md-button>LIKE</button>
           <button md-button>SHARE</button>
+          <span class="flex-spacer"></span>
+          <button md-button [routerLink]="['/dishdetail',next]">
+            <span class="fa fa-chevron-right fa-lg"></span>
+          </button>
         </md-card-actions>
       </md-card>
     </div>
   </div>
-  <div fxFlex="40">
+  <div [hidden]="dish">
+    <md-spinner></md-spinner> <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div fxFlex="40" *ngIf="dish">
     <div>
       <p style="font-weight:bold;">Comments</p>
       <md-list-item *ngFor="let comment of dish.comments">
@@ -37,7 +47,7 @@
       </md-list-item>
     </div>
   </div>
-</div>
-<div [hidden]="dish">
+  <div [hidden]="dish">
     <md-spinner></md-spinner> <h4>Loading . . . Please Wait</h4>
+  </div>
 </div>
