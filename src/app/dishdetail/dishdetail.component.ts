@@ -1,4 +1,4 @@
-import { Component, OnInit,  } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Dish } from '../shared/dish';
@@ -40,12 +40,13 @@ export class DishdetailComponent implements OnInit {
         'maxlength': 'Comment cannot be more than 25 characters long'
       }
     }
-    date: Date = new Date();
+   
     ratingString: string;
     constructor(private dishservice: DishService,
                 private route: ActivatedRoute,
                 private location: Location,
-                private fb: FormBuilder) {
+                private fb: FormBuilder,
+                @Inject('BaseURL') private BaseURL) {
       this.createForm();
       this.onValueChanged();
     }          
@@ -78,7 +79,7 @@ export class DishdetailComponent implements OnInit {
       const comment: comment = { rating : this.feedbackForm.get('rating').value,
                         comment : this.feedbackForm.get('comment').value,
                         author: this.feedbackForm.get('name').value,
-                        date: ''+ new Date()};
+                        date: '' + new Date().toISOString};
       this.dish.comments.push(comment);
       console.log(comment);
       this.feedback = this.feedbackForm.value;
@@ -88,8 +89,6 @@ export class DishdetailComponent implements OnInit {
         rating: 5,
         comment: ''
       });
-      
-      
     }
    onValueChanged(data?: any) {
     if (!this.feedbackForm) { return; }

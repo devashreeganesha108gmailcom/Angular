@@ -8,7 +8,7 @@
             <h3>{{dish.name | uppercase}}</h3>
           </md-card-title>
         </md-card-header>
-        <img md-card-image src={{dish.image}} alt={{dish.name}}>
+        <img md-card-image src="{{BaseURL + dish.image}}" alt={{dish.name}}>
         <md-card-content>
           <p>{{dish.description}}
           </p>
@@ -43,7 +43,7 @@
           </p>
         </md-list-item>
         <md-list-item>
-          <p md-line>
+          <p md-line [hidden]="!(feedbackForm.valid)">
             <span> {{feedbackForm.comment}} </span>
           </p>
           <p md-line [hidden]="!(feedbackForm.get('rating').touched)">
@@ -72,7 +72,7 @@
             </md-input-container>
           </p>
           <p>
-            <md-slider mdInput md-discrete formControlName="rating" [(ngModel)]="feedbackForm.rating" ng-model="myDiscreteValue" value="5" step="1" min="0" max="5"></md-slider>
+            <md-slider mdInput tickInterval="1" thumbLabel md-discrete formControlName="rating" [(ngModel)]="feedbackForm.rating" ng-model="myDiscreteValue" value="5" step="1" min="0" max="5"></md-slider>
           </p>
           <p>
             <md-input-container class="full-width">

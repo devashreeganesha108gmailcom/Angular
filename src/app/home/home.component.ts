@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Promotion } from '../shared/promotion';
 import { Leader } from '../shared/leader';
@@ -9,7 +9,6 @@ import { LeaderService } from '../services/leader.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
 
@@ -19,7 +18,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private dishservice: DishService, 
               private promotionservice: PromotionService,
-              private leaderservice: LeaderService) { 
+              private leaderservice: LeaderService,
+              @Inject('BaseURL') private BaseURL) { 
   }
 
   ngOnInit() {
