@@ -1,5 +1,5 @@
 export class FeedbackTwo {
     name: string;
-    rating: number;
+    rating: string;
     comment: string;
 };

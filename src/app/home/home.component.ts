@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit {
       errmess => this.errMess = <any>errmess);
     this.leaderservice.getFeaturedLeader().subscribe(leader => this.leader = leader,
       errmess => this.errMess = <any>errmess);
-    
   }
 
 }

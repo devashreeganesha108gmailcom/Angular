@@ -18,6 +18,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class DishdetailComponent implements OnInit {
     dish: Dish;
+    dishcopy = null;
     dishIds: {} | number[];
     prev: number;
     next: number;
@@ -41,7 +42,7 @@ export class DishdetailComponent implements OnInit {
       }
     }
     errMess: string;
-    ratingString: string;
+    defaultRating: number = 5;
 
     constructor(private dishservice: DishService,
                 private route: ActivatedRoute,
@@ -55,7 +56,7 @@ export class DishdetailComponent implements OnInit {
       this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
       this.route.params.
         switchMap((params: Params) => this.dishservice.getDish(+params['id'])).
-        subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); });
+        subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); });
       console.log(this.route.params);
     }   
     setPrevNext(dishId: number) {
@@ -72,24 +73,24 @@ export class DishdetailComponent implements OnInit {
       console.log("create form");
       this.feedbackForm = this.fb.group({
         name: ['',[ Validators.required, Validators.minLength(2), Validators.maxLength(25) ]],
-        rating: 5,
+        rating: this.defaultRating,
         comment: ['',[ Validators.required, Validators.minLength(2), Validators.maxLength(25) ]]
       });
       this.feedbackForm.valueChanges.subscribe(data => this.onValueChanged(data));
       console.log("feedbackForm" + this.feedbackForm);
     }
     onSubmit() {
+      const currentDate = new Date();
       const comment: comment = { rating : this.feedbackForm.get('rating').value,
                         comment : this.feedbackForm.get('comment').value,
                         author: this.feedbackForm.get('name').value,
-                        date: '' + new Date().toISOString};
-      this.dish.comments.push(comment);
+                        date: currentDate.toISOString()};
+      this.dishcopy.comments.push(comment);
+      this.dishcopy.save().subscribe(dish => this.dish = dish);
       console.log(comment);
-      this.feedback = this.feedbackForm.value;
-      console.log("feedback value" + this.feedback);
       this.feedbackForm.reset({
         name: '',
-        rating: 5,
+        rating: this.defaultRating,
         comment: ''
       });
     }
