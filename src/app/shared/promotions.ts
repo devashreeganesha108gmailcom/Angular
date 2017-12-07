@@ -4,7 +4,7 @@ import { Promotion } from './promotion';
     {
         id: 0,
         name: 'Weekend Grand Buffet',
-        image: '/assets/images/buffet.png',
+        image: 'buffet.png',
         label: 'New',
         price: '19.99',
         featured: true,

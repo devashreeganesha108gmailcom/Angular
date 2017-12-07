@@ -18,7 +18,7 @@ import 'rxjs/add/operator/switchMap';
 })
 export class DishdetailComponent implements OnInit {
     dish: Dish;
-    dishIds: number[];
+    dishIds: {} | number[];
     prev: number;
     next: number;
     feedbackForm: FormGroup;
@@ -40,8 +40,9 @@ export class DishdetailComponent implements OnInit {
         'maxlength': 'Comment cannot be more than 25 characters long'
       }
     }
-   
+    errMess: string;
     ratingString: string;
+
     constructor(private dishservice: DishService,
                 private route: ActivatedRoute,
                 private location: Location,
@@ -58,9 +59,11 @@ export class DishdetailComponent implements OnInit {
       console.log(this.route.params);
     }   
     setPrevNext(dishId: number) {
-      let index = this.dishIds.indexOf(dishId);
-      this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
-      this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
+      if(Array.isArray(this.dishIds)){
+        let index = this.dishIds.indexOf(dishId);
+        this.prev = this.dishIds[(this.dishIds.length + index - 1) % this.dishIds.length];
+        this.next = this.dishIds[(this.dishIds.length + index + 1) % this.dishIds.length];
+      }
     }
     goBack(): void {
       this.location.back();

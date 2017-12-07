@@ -56,9 +56,6 @@
         </md-list-item>
       </div>
     </div>
-  <div [hidden]="dish">
-    <md-spinner></md-spinner> <h4>Loading . . . Please Wait</h4>
-  </div>
   <div fxFlex="40" class="form-size">
       <form novalidate id="form" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
           <p>
@@ -85,5 +82,11 @@
           </p>
           <button onclick="submitForm()" type="submit" md-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
         </form>
+  </div>
+  <div [hidden]="dish || errMess">
+    <md-spinner></md-spinner> <h4>Loading . . . Please Wait</h4>
+  </div>
+  <div [hidden]="dish || errMess">
+    <md-spinner></md-spinner> <h4>Loading . . . Please Wait</h4>
   </div>
 </div>
