@@ -41,8 +41,13 @@ body {
     margin: 20px;
     display: flex;
 }
-
 .container-card {
     display: inline-block;
     align-content: left;
+}
+.highlight {
+    background-color: $background-pale;
+    border: 1px solid $primary-color-dark;
+    z-index: 1;
+    transform: scale(1.01);
 }
